@@ -32,6 +32,6 @@ class PassType extends AbstractType
 
     public function getName()
     {
-        return 'admin_userbundle_passtype';
+        return 'appbundle_passtype';
     }
 }

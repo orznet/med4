@@ -77,9 +77,9 @@ class DocenteController extends Controller {
             'periodo' => $periodo
         );
     }
-    
-    
-    
+
+
+
         /**
      * Lists all Docente entities.
      *
@@ -90,9 +90,9 @@ class DocenteController extends Controller {
     public function indexVinculacionAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('vinculacion' => $id, 'periodo' => $this->container->getParameter('appmed.periodo')));
-       // $periodo= $this->container->getParameter('appmed.periodo'); 
+       // $periodo= $this->container->getParameter('appmed.periodo');
        // $entities = $em->getRepository('AdminUnadBundle:Docente')->porVinculacion($id,$periodo);
-        
+
         $total = count($entities);
         return array(
             'entities' => $entities,
@@ -106,7 +106,7 @@ class DocenteController extends Controller {
      *
      * @Route("/dc", name="docente_dc")
      * @Method("GET")
-     * @Template("AdminUnadBundle:Docente:dc.html.twig")
+     * @Template("Docente/dc.html.twig")
      */
     public function indexDcAction() {
         $em = $this->getDoctrine()->getManager();
@@ -123,7 +123,7 @@ class DocenteController extends Controller {
      *
      * @Route("/dc", name="docente_dcescuela")
      * @Method("GET")
-     * @Template("AdminUnadBundle:Docente:porescueladc.html.twig")
+     * @Template("Docente/porescueladc.html.twig")
      */
     public function indexDcescuelaAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -144,7 +144,7 @@ class DocenteController extends Controller {
      *
      * @Route("/zn", name="docente_dczona")
      * @Method("GET")
-     * @Template("AdminUnadBundle:Docente:porzonadc.html.twig")
+     * @Template("Docente/porzonadc.html.twig")
      */
     public function indexZonaAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -164,7 +164,7 @@ class DocenteController extends Controller {
      *
      * @Route("/", name="docente_create")
      * @Method("POST")
-     * @Template("AdminUnadBundle:Docente:new.html.twig")
+     * @Template("Docente/new.html.twig")
      */
     public function createAction(Request $request) {
         $entity = new Docente();
@@ -245,8 +245,8 @@ class DocenteController extends Controller {
             'instrumentos' => $instrumentos,
         );
     }
-    
-    
+
+
         /**
      * Finds and displays a Docente entity
      * @Route("/inicio/", name="docente_inicio")
@@ -263,16 +263,16 @@ class DocenteController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Error al buscarla entidad del docente.');
         }
-        
+
         if ($entity->getVinculacion() == 'DOFE') {
             $red = $em->getRepository('AdminMedBundle:RedDofe')->findBy(array('docente' => $entity));
-            return $this->render('AdminUnadBundle:Docente:iniciodofe.html.twig', array(
+            return $this->render('Docente/iniciodofe.html.twig', array(
                         'entity' => $entity,
                         'instrumentos' => $instrumentos,
                         'red' => $red
             ));
         } else {
-            return $this->render('AdminUnadBundle:Docente:show.html.twig', array(
+            return $this->render('Docente/show.html.twig', array(
                         'entity' => $entity,
                         'instrumentos' => $instrumentos
             ));
@@ -283,7 +283,7 @@ class DocenteController extends Controller {
      * Finds and displays a Docente entity
      * @Route("/{id}/info", name="docente_info")
      * @Method("GET")
-     * @Template()
+     * @Template("Docente/info.html.twig")
      */
     public function infoAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -293,9 +293,9 @@ class DocenteController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Docente entity.');
         }
-        
+
         if ($entity->getVinculacion() == 'DOFE') {
-            return $this->render('AdminUnadBundle:Docente:dofe.html.twig', array(
+            return $this->render('Docente/dofe.html.twig', array(
                         'entity' => $entity,
             ));
         } else {
@@ -354,7 +354,7 @@ class DocenteController extends Controller {
      *
      * @Route("/{id}", name="docente_update")
      * @Method("PUT")
-     * @Template("AdminUnadBundle:Docente:edit.html.twig")
+     * @Template("Docente/edit.html.twig")
      */
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
@@ -425,7 +425,7 @@ class DocenteController extends Controller {
 
     /**
      * @Method("GET")
-     * @Template()
+     * @Template("Docente/coevaltutor.html.twig")
      */
     public function coevaltutorAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -455,7 +455,7 @@ class DocenteController extends Controller {
 
     /**
      * @Method("GET")
-     * @Template()
+     * @Template("Docente/coevalinfo.html.twig")
      */
     public function coevalinfoAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -468,25 +468,25 @@ class DocenteController extends Controller {
     /**
      * @Route("/final/{id}", name="docente_final")
      * @Method("GET")
-     * @Template("AdminUnadBundle:Docente:final.html.twig")
+     * @Template("Docente/final.html.twig")
      */
     public function finalAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($id);
 
         if ($entity->getVinculacion() == 'De Carrera') {
-            return $this->render('AdminUnadBundle:Docente:finaldc.html.twig', array(
+            return $this->render('Docente/finaldc.html.twig', array(
                         'docente' => $entity,
             ));
         }
         else if ($entity->getVinculacion() == 'DOFE') {
             $red = $em->getRepository('AdminMedBundle:RedDofe')->findBy(array('docente' => $entity));
-            return $this->render('AdminUnadBundle:Docente:finaldofe.html.twig', array(
+            return $this->render('Docente/finaldofe.html.twig', array(
                         'docente' => $entity,
                         'red' => $red
             ));
         }
-        
+
         else {
             return array(
                 'docente' => $entity,
@@ -497,7 +497,7 @@ class DocenteController extends Controller {
     /**
      * @Route("/observ/{id}", name="docente_observ")
      * @Method("GET")
-     * @Template("AdminUnadBundle:Docente:observ.html.twig")
+     * @Template("Docente/observ.html.twig")
      */
     public function observAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -514,7 +514,7 @@ class DocenteController extends Controller {
     /**
      * @Route("/observaciones/{id}", name="docente_observaciones")
      * @Method("PUT")
-     * @Template("AdminUnadBundle:Docente:info.html.twig")
+     * @Template("Docente/info.html.twig")
      */
     public function observacionesAction(Request $request, $id) {
 

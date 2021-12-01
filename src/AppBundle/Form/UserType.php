@@ -32,6 +32,6 @@ class UserType extends AbstractType
 
     public function getName()
     {
-        return 'admin_userbundle_usertype';
+        return 'appbundle_usertype';
     }
 }
