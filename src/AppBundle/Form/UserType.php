@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\UserBundle\Form;
+namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,12 +11,12 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id')    
+            ->add('id')
             ->add('username')
             ->add('nombres')
             ->add('apellidos')
             ->add('email')
-            ->add('emailp')   
+            ->add('emailp')
             ->add('password')
             ->add('isActive')
             ->add('user_roles')
@@ -26,7 +26,7 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Admin\UserBundle\Entity\User'
+            'data_class' => 'AppBundle\Entity\User'
         ));
     }
 

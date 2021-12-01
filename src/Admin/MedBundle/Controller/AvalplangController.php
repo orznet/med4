@@ -82,7 +82,7 @@ class AvalplangController extends Controller {
             'entities' => $docentes,
             'periodo' => $this->container->getParameter('appmed.periodo'),
             'escuela' => $escuela
-        ); 
+        );
         }else{
         $escuela = null;
         $docentes = $em->getRepository('AdminUnadBundle:Docente')
@@ -97,8 +97,8 @@ class AvalplangController extends Controller {
         }
 
     }
-    
-    
+
+
         /**
      * Avalar plang
      *
@@ -112,14 +112,14 @@ class AvalplangController extends Controller {
 
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($id);
         $entity = $docente->getPlangestion();
-                
+
         return array(
             'docente' => $docente,
             'entity' => $entity
         );
     }
-    
-    
+
+
 
     /**
      * Creates a new Avalplang entity.
@@ -217,11 +217,11 @@ class AvalplangController extends Controller {
         $em = $this->getDoctrine()->getManager();
         //$plan = $em->getRepository('AdminMedBundle:Plangestion')->find($id);
 
-        //$user = $em->getRepository('AdminUserBundle:User')->find($this->getUser());
+        //$user = $em->getRepository('AppBundle:User')->find($this->getUser());
         //$entity = $em->getRepository('AdminMedBundle:Avalplang')->findOneBy(array('plan' => $plan, 'user' => $user));
         $entity = $em->getRepository('AdminMedBundle:Avalplang')->find($id);
 
-        
+
         $texto = explode('\n', $entity->getObservaciones());
 
         if (!$entity) {

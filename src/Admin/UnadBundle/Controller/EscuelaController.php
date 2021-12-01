@@ -48,11 +48,11 @@ class EscuelaController extends Controller
         $entity = new Escuela();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
- 
+
         $em = $this->getDoctrine()->getManager();
-        $decano = $em->getRepository('AdminUserBundle:User')->find($form["decano"]->getData());
+        $decano = $em->getRepository('AppBundle:User')->find($form["decano"]->getData());
         $entity->setDecano($decano);
-        $secretaria = $em->getRepository('AdminUserBundle:User')->find($form["secretaria"]->getData());
+        $secretaria = $em->getRepository('AppBundle:User')->find($form["secretaria"]->getData());
         $entity->setSecretaria($secretaria);
 
         if ($form->isValid()) {
@@ -133,7 +133,7 @@ class EscuelaController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
-    
+
      /**
      * Finds and displays a Escuela entity.
      *
@@ -150,10 +150,10 @@ class EscuelaController extends Controller
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
         $periodose = $em->getRepository('AdminMedBundle:Periodoe')->findby(array(),array('id' => 'DESC'));
         $programas = $em->getRepository('AdminUnadBundle:Programa')->findBy(array('escuela' => $escuela),array('nivel' => 'DESC'));
-        
+
         $ofertado = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->findby(array('programa' => $programas, 'periodo' => $this->container->getParameter('appmed.periodo')));
 
-        
+
         if (!$escuela) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
         }
@@ -163,7 +163,7 @@ class EscuelaController extends Controller
         'periodos'    => $periodose
         );
     }
-    
+
     /**
      * Displays a form to edit an existing Escuela entity.
      *
@@ -231,12 +231,12 @@ class EscuelaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        
-        $decano = $em->getRepository('AdminUserBundle:User')->find($editForm["decano"]->getData());
+
+        $decano = $em->getRepository('AppBundle:User')->find($editForm["decano"]->getData());
         $entity->setDecano($decano);
-        $secretaria = $em->getRepository('AdminUserBundle:User')->find($editForm["secretaria"]->getData());
+        $secretaria = $em->getRepository('AppBundle:User')->find($editForm["secretaria"]->getData());
         $entity->setSecretaria($secretaria);
-        
+
         if ($editForm->isValid() && $secretaria && $decano) {
             $em->flush();
 
@@ -291,7 +291,7 @@ class EscuelaController extends Controller
             ->getForm()
         ;
     }
-    
+
      /**
      * Finds and displays a Escuela entity.
      *
@@ -310,10 +310,10 @@ class EscuelaController extends Controller
         'entity'      => $escuela,
         );
     }
-    
-    
-    
-    
+
+
+
+
      /**
      * Lista la evaluacion de estudiantes
      * @Route("/mi/heteroeval", name="escuela_heteroeval")
@@ -334,8 +334,8 @@ class EscuelaController extends Controller
         'docentes'    => $docentes,
         );
     }
-    
-    
+
+
       /**
      * @Route("/mi/resultados", name="escuela_resultados")
      * @Method("GET")

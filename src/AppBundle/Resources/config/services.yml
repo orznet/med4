@@ -1,5 +1,5 @@
 parameters:
-#    admin_user.example.class: Admin\UserBundle\Example
+#    admin_user.example.class: AppBundle\Example
 
 services:
 #    admin_user.example:

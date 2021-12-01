@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\UserBundle\Controller;
+namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -74,7 +74,7 @@ class DefaultController extends Controller {
             $docente = null;
         }
 
-        return $this->render('AdminUserBundle:Default:index.html.twig', array(
+        return $this->render('AppBundle:Default:index.html.twig', array(
                     'escuela' => $escuela,
                     'user' => $user,
                     'periodo' => $periodoe,
@@ -95,7 +95,7 @@ class DefaultController extends Controller {
 
         $cedula_usuario = $request->request->get('cedula_usuario');
 
-        $user = $em->getRepository('AdminUserBundle:User')->findOneBy(array('id' => $cedula_usuario));
+        $user = $em->getRepository('AppBundle:User')->findOneBy(array('id' => $cedula_usuario));
 
         $nombres_usuario = $request->request->get('nombres_usuario');
         $apellidos_usuario = $request->request->get('apellidos_usuario');
@@ -114,7 +114,7 @@ class DefaultController extends Controller {
         //------------- Origenes validos ----------------------------------------------------------
         $urlOrigenValido1 = "https://intranet.unad.edu.co/autenticacion.php?continue=http://med.unad.edu.co/"; //cuando accede por el home de intranet
         $urlOrigenValido2 = $url_autenticacion . "Usuario/envioDatosUsuario.php"; //cuando accede por login.unad.edu.co
-        $urlOrigenValido3 = $url_autenticacion . "Usuario/envioDatosUsuario.php?continue=" . $urlInicioApp; //cuando accede por login.unad.edu.co 
+        $urlOrigenValido3 = $url_autenticacion . "Usuario/envioDatosUsuario.php?continue=" . $urlInicioApp; //cuando accede por login.unad.edu.co
         //
         //-----------------------------------------------------------------------------------------
 
@@ -123,8 +123,8 @@ class DefaultController extends Controller {
         if ($autenticacion == "Aceptada" && $ucount == 1) {
             $this->ingresoAction($cedula_usuario, $request);
         } else {
-            # $this->ingresoAction($cedula_usuario);    
-            return $this->render('AdminUserBundle:Default:home.html.twig', array(
+            # $this->ingresoAction($cedula_usuario);
+            return $this->render('AppBundle:Default:home.html.twig', array(
                         // el último nombre de usuario ingresado por el usuario
                         'cedula_usuario' => $cedula_usuario,
                         'nombres_usuario' => $nombres_usuario,
@@ -165,6 +165,6 @@ class DefaultController extends Controller {
         echo $formulario;
     }
 
-   
+
 
 }
