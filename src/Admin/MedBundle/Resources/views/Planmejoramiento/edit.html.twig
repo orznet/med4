@@ -1,0 +1,31 @@
+  {% block body -%}
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+            <h4 class="modal-title">Observaciones</h4>
+            </div>			<!-- /modal-header -->
+            <div class="modal-body">          
+   <form  action="{{ path('planmejoramiento_update', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}
+   <table class="table table-bordered table-striped hidden-mobile">
+   <input type="hidden" name="_method" value="PUT" />
+     {{ form_errors(edit_form) }}
+     <div style="display:none;">
+     {{ form_widget(edit_form.docente) }}
+     </div>
+   <tr>
+    <td>Observaciones</td>
+    <td>{{ form_widget(edit_form.observaciones) }}</td>
+   </tr>
+   <tr>
+    <td>Se cumplio</td>
+    <td>{{ form_widget(edit_form.calificacion) }}</td>
+   </tr>
+   <tr>
+    <td></td>
+    <td>    
+    <button type="submit" class="btn btn-lg btn-primary">Enviar</button></td>
+  </tr>
+  {{ form_widget(edit_form._token) }}
+  </table>
+</form>
+</div>                
+{% endblock %}

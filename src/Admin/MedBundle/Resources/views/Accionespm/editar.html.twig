@@ -1,0 +1,32 @@
+  {% block body -%}
+               <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+            <h4 class="modal-title">Cumplimiento de Item</h4>
+            </div>			<!-- /modal-header -->
+            <div class="modal-body">          
+   <form  action="{{ path('accionespm_editar', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}
+   <table class="table table-bordered table-striped hidden-mobile">
+   <input type="hidden" name="_method" value="POST" />
+     {{ form_errors(edit_form) }}
+   <tr>
+       <td>Oportunidad de Mejora</td>
+       <td>{{ entity.oportunidad }}</td>
+   </tr>
+      <tr>
+       <td>Acción Propuesta</td>
+       <td>{{ entity.oportunidad }}</td>
+   </tr>
+      <tr>
+       <td>Observaciones de docente</td>
+       <td>{{ entity.observaciones }}</td>
+   </tr>
+   <tr>
+    <td></td>
+    <td>
+     {{ form_widget(edit_form.estado) }}
+    <button type="hidden" class="btn btn-lg btn-primary">Enviar</button></td>
+  </tr>
+  {{ form_widget(edit_form._token) }}
+  </table>
+</form>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% block body -%}
+       
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h4 class="modal-title">{{ entity.nombre }}</h4>
+            </div>			<!-- /modal-header -->
+            <div class="modal-body">
+  <table class="table table-bordered table-striped hidden-mobile">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Sigla</th>
+                <td>{{ entity.sigla }}</td>
+            </tr>
+            <tr>
+                <th>Decano</th>
+                <td>{{ entity.decano.username }}: {{ entity.decano.nombres }} {{ entity.decano.apellidos }}</td>
+            </tr>
+            <tr>
+                <th>Secretaria Academica</th>
+                <td>{{ entity.secretaria ? entity.secretaria.username~': '~entity.secretaria.nombres~' '~entity.secretaria.apellidos  : 'SIN' }}</td>
+            </tr>
+            <tr>
+                <th>Terna de Pares</th>
+                <td>
+                     {%for ternado in terna %}
+                    {{ternado.docente.user.id}}: {{ternado.docente.user.nombres}} {{ternado.docente.user.apellidos}}
+                    {%if not ternado.principal %}
+                    - Suplente
+                    {%endif%}
+                    <br>
+                    {%endfor%}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    {% if is_granted('ROLE_ADMIN') %}
+            <li>
+        <a href="{{ path('escuela_edit', { 'id': entity.id }) }}">
+            Editar
+        </a>
+    </li>
+   
+     <li>{{ form(delete_form) }}</li> {%endif%}
+</ul>
+            </div>			<!-- /modal-body -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>			<!-- /modal-footer -->
+        
+        <!-- /modal-dialog -->
+{% endblock %}

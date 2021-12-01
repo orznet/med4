@@ -1,0 +1,44 @@
+
+
+        {{ form_errors(form) }}  
+        <fieldset>
+            <section>
+                <h5>Por favor complete la siguiente información:</h5>
+            </section>
+            <section>
+                {%if form_errors(form.username)%}
+                    <label class="input state-error"> <i class="icon-append fa fa-user"></i>
+                        {{ form_widget(form.username,  {'attr': {'placeholder':'No Identificación', 'class':'invalid'}}) }}
+                    </label>
+                    <em for="name" class="invalid">{{ form_errors(form.username) }}</em>
+                {%else%}
+                    <label class="input"><i class="icon-append fa fa-user"></i>
+                        {{ form_widget(form.username,  {'attr': {'placeholder':'No Identificación'}}) }}
+                    </label>
+                {%endif%}
+            </section>
+            <section>
+                {%if form_errors(form.email)%}
+                    <label class="input state-error"> <i class="icon-append fa fa-user"></i>
+                        {{ form_widget(form.email,  {'attr': {'placeholder':'Correo Institucional', 'class':'invalid'}}) }}
+                    </label>
+                    <em for="name" class="invalid">{{ form_errors(form.email) }}</em>
+                {%else%}
+                    <label class="input"> <i class="icon-append fa fa-user"></i>
+                        {{ form_widget(form.email,  {'attr': {'placeholder':'Correo Institucional'}}) }}
+                    </label>
+                {%endif%}
+            </section>
+            <section>
+                <label class="select"> <i class="icon-append fa fa-user"></i>
+                    {{ form_widget(form.vinculacion)}}
+                </label>
+                <em for="name" class="invalid">{{ form_errors(form.vinculacion) }}</em>
+            </section>
+            <section>
+                <label class="select"> <i class="icon-append fa fa-user"></i>
+                    {{ form_widget(form.unidad)}}
+                </label>
+                <em for="name" class="invalid">{{ form_errors(form.unidad) }}</em>
+            </section>
+        </fieldset>

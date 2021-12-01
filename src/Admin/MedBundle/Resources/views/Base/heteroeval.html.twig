@@ -1,0 +1,127 @@
+{% block body -%}
+<link rel="stylesheet" type="text/css" href="{{ asset('css/print.css') }}">
+<table class="data" width="100%" border="0">
+        <tr>
+    <td colspan="4" align="center"><img src="/img/logo-med-unad.png" alt="MED">
+    </td>
+  </tr>
+  <tr>
+  <td align="center" class="data" colspan="4"><h3>Instrumento 2: Evaluación Estudiantil (Heteroevalación)</h3></td>
+  </tr>
+    <tr>
+    <td align="center" class="data" colspan="4"><h3>Información del docente que se evaluá:</h3></td>
+  </tr>
+  <tr>
+    <td><b>Cédula:</b></td>
+    <td>{{entity.user.id}}</td>
+    <td><b>Nombres:</b></td>
+    <td>{{entity.user.nombres}} {{entity.user.apellidos}}</td>
+  </tr>
+  <tr>
+    <td><b>Tipo de vinculación</b></td>
+    <td>{{entity.vinculacion}}</td>
+    <td><b>Escuela o Vicerrectoria:</b></td>
+    <td>{{entity.escuela.nombre}}</td>
+  </tr>
+  <tr>
+    <td>Periodo de Evaluación: {{entity.periodo}}</td>
+    <td>&nbsp;</td>
+    <td><b>Decano o Vicerrector:</b></td>
+    <td>{{entity.escuela.decano.nombres}} {{entity.escuela.decano.apellidos}}</td>
+  </tr>
+</table>
+    
+{%if entity.heteroeval%}
+<table class="data" width="100%" border="0">
+  <tr>
+    <td><b>Fecha de evaluación:</b></td>
+    <td>{{entity.heteroeval.fecha|date('Y-m-d H:i   ')}}</td>
+    <td><b>Momento de evaluación:</b> {{entity.periodo}}</td>
+    <td><b>Fecha y hora de consulta:</b> {{"now"|date('Y-m-d H:i   ')}}</td>
+  </tr>
+  <tr>
+    <td><b>Descripción del Instrumento:</b></td>
+    <td class="data" colspan="3">Instrumento dirigido a garantizar la participación de los estudiantes en la evaluación de calidad de las actividades formativas del docente en las responsabilidades institucionales que le correspondan y en cada curso a su cargo, en particular sus competencias, relacionadas con la calidad de los contenidos y su planificación y desarrollo, la calidad de la interacción formativa, las formas de evaluación en el mismo y los propios resultados del aprendizaje.</td>
+  </tr>
+  <tr>
+    <td><b>Escala de Evaluación:</b></td>
+    <td class="data" colspan="3">Asiganación de puntos por respuesta:<br>Totalmente de acuerdo: 100 puntos, De acuerdo: 75 puntos, En desacuerdo: 50 puntos, En total desacuerdo: 25 puntos.</td>
+  </tr>
+
+</table>
+
+<table class="data" width="100%" border="0">
+  <tr>
+    <td class="data" align="center" colspan="7">Consolidado Final por Competencias</td>
+  </tr>
+  <tr>
+    <td>COGNITIVA</td>
+    <td>COMUNICATIVA</td>
+    <td>METODOLÓGICA</td>
+    <td>PEDAGÓGICO-DIDÁCTICAS</td>
+    <td>SOCIOAFECTIVA</td>
+    <td>TECNOLÓGICA</td>
+    <td>Calificación Instrumento</td>
+  </tr>
+
+  <tr>
+    <td class="data" align="center">{{entity.heteroeval.competencia1}}</td>
+    <td class="data" align="center">{{entity.heteroeval.competencia2}}</td>
+    <td class="data" align="center">{{entity.heteroeval.competencia3}}</td>
+    <td class="data" align="center">{{entity.heteroeval.competencia4}}</td>
+    <td class="data" align="center">{{entity.heteroeval.competencia5}}</td>
+    <td class="data" align="center">{{entity.heteroeval.competencia6}}</td>
+    <td class="data" align="center">{{(entity.heteroeval.calificacion)|number_format(1)}}</td>
+  </tr>
+</table>
+
+<table class="data" width="100%" border="0">
+  <tr>
+    <td class="data" align="center" colspan="11">Cursos evaluados</td>
+  </tr>
+  <tr>
+    <td>Curso</td>
+    <td>Nombre</td>
+    <td>Periodo</td>
+    <td>Participantes</td> 
+    <td align="center">C1</td>
+    <td align="center">C2</td>
+    <td align="center">C3</td>
+    <td align="center">C4</td>
+    <td align="center">C5</td>
+    <td align="center">C6</td>
+    <td align="center">Puntaje</td>
+  </tr>
+    {%for curso in evaluaciones %}
+  <tr>   
+    <td>{{curso.cursoId}}</td>
+    <td>{{curso.nombre}}</td>
+    <td>{{curso.periodo}}</td>
+    <td>{{curso.estudiantes}}</td>
+    <td align="center">{{curso.competencia1}}</td>
+    <td  align="center">{{curso.competencia2}}</td>
+    <td  align="center">{{curso.competencia3}}</td>
+    <td  align="center">{{curso.competencia4}}</td>
+    <td  align="center">{{curso.competencia5}}</td>
+    <td  align="center">{{curso.competencia6}}</td>
+    <td  align="center">{{curso.calificacion}}</td>
+  </tr>
+  {%endfor%}
+  <tr>
+<td class="data" colspan="11">
+    <b>Puntajes recibidos por competencias:</b><br>    
+C1 = COGNITIVA<br>
+C2 = COMUNICATIVA<br>
+C3 = METODOLÓGICA<br>
+C4 = PEDAGÓGICO-DIDÁCTICAs<br>
+C5 = SOCIOAFECTIVA<br>
+C6 = TECNOLÓGICA<br>
+      </td>
+      </tr>
+</table>
+{%else%}
+ Docente si resultados de Hetero Evalaución MED   
+{%endif%}
+
+  
+ {% endblock %}

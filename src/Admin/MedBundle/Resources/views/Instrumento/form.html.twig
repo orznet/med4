@@ -1,0 +1,39 @@
+{{ form_errors(form) }}  
+<fieldset>
+    <section>
+        {%if form_errors(form.nombre)%}
+            <label class="input state-error"> <i class="icon-append fa fa-user"></i>
+                {{ form_widget(form.nombre,  {'attr': {'placeholder':'Nombre', 'class':'invalid'}}) }}
+            </label>
+                <em for="name" class="invalid">{{ form_errors(form.nombre) }}</em>
+        {%else%}
+            <label class="input"><i class="icon-append fa fa-user"></i>
+                {{ form_widget(form.nombre,  {'attr': {'placeholder':'Nombre'}}) }}
+            </label>
+        {%endif%}
+    </section>
+    <section>
+        {%if form_errors(form.tipo)%}
+            <label class="input state-error"> <i class="icon-append fa fa-user"></i>
+                {{ form_widget(form.tipo,  {'attr': {'placeholder':'Nombre', 'class':'invalid'}}) }}
+            </label>
+            <em for="name" class="invalid">{{ form_errors(form.tipo) }}</em>
+        {%else%}
+            <label class="input"> <i class="icon-append fa fa-user"></i>
+                {{ form_widget(form.tipo,  {'attr': {'placeholder':'Nombre'}}) }}
+            </label>
+        {%endif%}
+    </section>
+    <section>
+        <label class="input"> <i class="icon-append fa fa-user"></i>
+            {{ form_widget(form.descripcion,  {'attr': {'placeholder':'Descripción'}}) }}
+        </label>
+        <em for="name" class="invalid">{{ form_errors(form.descripcion) }}</em>
+    </section>
+    <section>
+        <label class="select"> <i class="icon-append fa fa-user"></i>
+            {{ form_widget(form.estado)}}
+        </label>
+        <em for="name" class="invalid">{{ form_errors(form.estado) }}</em>
+    </section>
+</fieldset>

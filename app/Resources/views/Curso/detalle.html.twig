@@ -1,0 +1,38 @@
+<table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <tbody>
+           <td colspan="4"><h4>{{entity.curso.id}} - {{ entity.curso.nombre }} - {{entity.periodo}} </h4></td>
+            <tr>
+                <td>Director: {{entity.director.user.nombres}} {{entity.director.user.apellidos}}
+                {% if is_granted('ROLE_ADMIN') %}
+                 <a href="{{ path('oferta_edit', {'id': entity.id }) }}" class="btn btn-success btn-xs"> <i class="fa fa-edit"></i></a>   
+                    {%endif%}
+                </td>
+                <td>Programa: {{ entity.curso.programa? entity.curso.programa.nombre : 'Sin' }} - {{ entity.curso.escuela }}</td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Nivel:</b> {{ entity.curso.nivel }} <b>Tipologia:</b> {{ entity.curso.tipologia }} <b>Creditos:</b> {{ entity.curso.creditos }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h4>Tutores</h4>
+        <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <tbody>
+          <tr>
+              <th>ID</th>
+                <th>Nombre</th>
+                <th>Centro</th>
+                <th>Borrar</th>
+            </tr>
+        {%for tutor in entity.tutores %}
+            <tr>
+                <td>{{tutor.docente.id}}</td>
+                <td>{{tutor.docente.user.id}} - {{tutor.docente.user.nombres}} {{tutor.docente.user.apellidos}}</td>
+                <td>{{tutor.docente.centro.nombre}}</td>
+                <td><div class="editar" style="visibility: hidden"><a href="{{ path('tutor_delete', {'id': tutor.id }) }}" class="btn  btn-xs btn-success"> <i class="fa fa-trash-o"></i></a></div>
+                </td>
+            </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+  
+  

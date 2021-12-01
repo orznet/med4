@@ -1,0 +1,22 @@
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+                <h5 class="modal-title">Oferta:  {{entity.periodo}}</h5>
+                </div>			<!-- /modal-header -->
+                <div class="modal-body"> 
+        {{ include(
+            'Curso/detalle.html.twig',
+            {'entity': entity}
+        ) }}
+         
+<h4>Agregar Tutor al curso para el periodo {{entity.periodo}}</h4><br>
+
+<form action="{{ path('oferta_tutor', { 'id': entity.id }) }}" method="get" {{ form_start(cedula_form) }}
+    {{ form_label(cedula_form.cedula,  'Cédula del Tutor') }}
+    {{ form_widget(cedula_form.cedula) }}    
+    {{ form_errors(cedula_form.cedula) }}
+    <input type="submit" />
+</form>
+                    
+                    
+         </div>
+

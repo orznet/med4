@@ -1,0 +1,26 @@
+{% block body -%}
+      <table class="table table-bordered table-striped hidden-mobile">
+        <tbody>
+            <tr>
+                <th>User</th>
+                <td>{{ app.user ? app.user.username : 'Anonymous' }}</td>
+            </tr>
+            <tr>
+                <th>Nombres</th>
+                <td>{{ app.user ? app.user.nombres : 'Anonymous' }}</td>
+            </tr>
+            <tr>
+                <th>Apellidos</th>
+                <td>{{ app.user ? app.user.apellidos : 'Anonymous' }}</td>
+            </tr>
+           <tr>
+                <th>Correo</th>
+                <td>{{ app.user ? app.user.email : 'Anonymous' }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{% for roles in app.user.getUserRoles() %} {{roles.descripcion}}, {% endfor %}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% block body -%}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+        <h4 class="modal-title">{{ entity.actividad.rol.nombre }}</h4>
+    </div>            <!-- /modal-header -->
+    <div class="modal-body">
+    <form action="{{ path('dofe_calificarupdate', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}
+        <table class="table table-bordered table-striped hidden-mobile">
+            <input type="hidden" name="_method" value="PUT"/>
+            <tr>
+                <td>Responsabilidad</td>
+                <td>{{ entity.actividad.responsabilidad.nombre }}</td>
+            </tr>
+            <tr>
+                <td>Actividad</td>
+                <td>{{ entity.actividad.descripcion }}</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td>Descripción del cumplimiento:</td>
+                <td>
+                    <font color="#4267b2">{{ actividad.observaciones }}</font>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Evidencia:</td>
+                <td>
+                    {% if actividad.path %}
+                        <a href="../../../{{ actividad.webpath }}" target="_blank"
+                           class="btn btn-default btn-xs txt-color-green"><i class="fa fa-download"></i> Ver
+                            evidencia... </a>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">Calificación</td>
+
+            </tr>
+            <tr>
+                {% if eval.calificacion == null %}
+                <td>
+                    {% for choiceFormView in edit_form.calificacion %}
+                        <label class="radio">  {{ form_widget(choiceFormView) }} {{ form_label(choiceFormView) }}</label>
+                    {% endfor %}
+
+                    {{ form_errors(edit_form.calificacion) }}
+                </td>
+                <td style="vertical-align: middle">
+
+                        <button type="hidden" class="btn btn-lg btn-primary">Calificar</button>
+                </td>
+                {% endif %}
+
+            </tr>
+            <font color="#F87217">{{ form_errors(edit_form) }}</font>
+            {{ form_widget(edit_form._token) }}
+        </table>
+    </form>
+{% endblock %}

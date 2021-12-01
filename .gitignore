@@ -34,6 +34,7 @@
 # Assets and user uploads
 /web/bundles/
 /web/uploads/
+/web/archivos/
 
 # PHPUnit
 /app/phpunit.xml
@@ -50,3 +51,7 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+
+/.vscode/
+/.idea/

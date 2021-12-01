@@ -1,0 +1,37 @@
+{% block body -%}
+               <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+            <h4 class="modal-title">Agregar actividad al plan</h4>
+            </div>			<!-- /modal-header -->
+            <div class="modal-body">          
+   <form  action="{{ path('actividadplang_add', { 'id' : id } ) }}" method="post" {{ form_start(form) }}
+   <table class="table table-bordered table-striped hidden-mobile">
+   <input type="hidden" name="_method" value="POST" />
+     {{ form_errors(form) }}
+  <tr>
+    <td>Rol</td>
+    <td>{{ entity.actividad.rol.nombre }}</td>
+  </tr>
+   <tr>
+    <td>Actividad</td>
+    <td><div hidden="true">{{ form_widget(form.actividad) }}</div> {{ entity.actividad.descripcion }}</td>
+  </tr>
+   <tr>
+    <td>Horas por semana</td>
+    <td>{{ form_widget(form.horas) }}</td>
+  </tr>
+{%if entity.actividad.textoampliacion%}
+  <tr>
+    <td>Descripción</td>
+    <td>{{ form_widget(form.descripcion) }}</td>
+  </tr>
+  {%endif%}
+  <tr>
+    <td></td>
+    <td><button type="hidden" class="btn btn-sm btn-primary">Agregar</button></td>
+  </tr>
+  {{ form_widget(form._token) }}
+  </table>
+     
+</form>
+{% endblock %}

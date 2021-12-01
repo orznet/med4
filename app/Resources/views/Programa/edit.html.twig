@@ -1,0 +1,43 @@
+
+{% block body -%}
+    <div class="modal-header">
+    <h4 class="modal-title">Editar Programa</h4>
+   </div> 
+   <form  action="{{ path('programa_update', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}
+   <table class="table table-bordered table-striped hidden-mobile">
+   <input type="hidden" name="_method" value="PUT" />
+     {{ form_errors(edit_form) }}
+   <tr>
+    <td>Nombre</td>
+    <td>{{ form_widget(edit_form.nombre) }}</td>
+   </tr>
+      <tr>
+    <td>Nivel</td>
+    <td>{{ form_widget(edit_form.nivel) }}</td>
+   </tr>
+      <tr>
+    <td>Escuela</td>
+    <td>{{ form_widget(edit_form.escuela) }}</td>
+   </tr>
+   <tr>
+    <td>Lider</td>
+    <td>{{ form_widget(edit_form.lider) }}
+    <input type=button onClick='targetitem = document.forms[0].programa_lider;
+dataitem = window.open("{{ path('programa_addlider') }}",
+"dataitem", "toolbar=no,menubar=no,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=1100,height=510,left = 100,top = 100"); dataitem.targetitem = targetitem' 
+value="Selecionar Lider">
+    </td>
+   </tr>
+   <tr>
+    <td></td>
+    <td>    
+    <button type="submit" class="btn btn-lg btn-primary">Guardar</button></td>
+  </tr>
+  {{ form_widget(edit_form._token) }}
+  </table>
+</form>
+
+        <ul class="record_actions">
+       {% if is_granted('ROLE_ADMIN') %}  <li>{{ form(delete_form) }}</li> {%endif%}
+</ul>     
+{% endblock %}

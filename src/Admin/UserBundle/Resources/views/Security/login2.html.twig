@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Inicio de sesión SIGA</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="{{ asset('/css/style.css') }}" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div id="header">
+	<div class="inHeaderLogin"></div>
+</div>
+{% if error %}
+    <center>        
+<div class="mserror">{{ error.message=='Bad credentials' ? 'Usted no tiene acceso a este módulo' : error.message }}</div>
+</center>
+{% endif %}
+<div id="loginForm">
+	<div class="headLoginForm">
+	Inicio de sesión
+	</div>
+	<div class="fieldLogin">
+	<form action="{{ path('login_check') }}" method="post">
+	<label for="username">Usuario:</label><br>
+	<input id="username" type="text" name="_username" value="{{ last_username }}" class="login"/><br>
+        <label for="password">Contraseña:</label><br>
+	<input id="password" type="password" name="_password" class="login"/><br>
+	<input type="submit" name="login" class="button" value="Entrar">
+	</form>
+	</div>
+</div>
+</body>
+</html>

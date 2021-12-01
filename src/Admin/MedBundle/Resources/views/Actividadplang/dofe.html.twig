@@ -1,0 +1,57 @@
+		  {% block body -%}
+		            <div class="modal-header">
+		            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+		            <h4 class="modal-title">{{ entity.actividad.rol.nombre }}</h4>
+		            </div>			<!-- /modal-header -->
+		            <div class="modal-body">          
+		   <form  action="{{ path('actividadplang_updatedofe', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}
+		   <table class="table table-bordered table-striped hidden-mobile">
+		   <input type="hidden" name="_method" value="PUT" />
+                   <tr>
+                       <td colspan="2">
+                       <font color="#F87217">{{ form_errors(edit_form) }}</font>
+                       </td>    
+                   </tr> 
+		  		   <tr>
+		    <td>Responsabilidad</td>
+		    <td>{{ entity.actividad.responsabilidad? entity.actividad.responsabilidad.nombre : '-'  }}</td>
+		    </tr>
+            <tr>
+		    <td>Actividad</td>
+		    <td>{{ entity.actividad.descripcion }}</td>
+		    </tr>
+			   <tr>
+				   <td>Estado</td>
+				   <td>{{ form_widget(edit_form.autoevaluacion) }} {{ form_errors(edit_form.autoevaluacion) }}<br>
+				   <font color="#F87217">Seleccione "No Realizado" si se presentaron factores ajenos a su responsabilidad.</font><br>
+				   <font color="#F87217">Seleccione "No Aplica" en caso que sea una actividad no concertada.</font>
+				   </td>
+			   </tr>
+		   <tr>
+		    <td>Descripción del cumplimiento</td>
+		    <td>
+		     {{ form_widget(edit_form.observaciones) }} {{ form_errors(edit_form.observaciones) }}
+		    </td>
+		  </tr>
+                   <tr>
+		    <td>Evidencia</td>
+		    <td>
+		     {{ form_widget(edit_form.file) }} {{ form_errors(edit_form.file) }}
+                        <font color="#F87217">Si lo requiere adjunte un archivo, únicamente Archivos PDF o ZIP de máximo 1MB de tamaño</font>
+		    </td>
+		  </tr>
+                    <tr>
+		    </tr> 
+		     <tr>
+		    <td>Registro del Cumplimiento</td>
+		    <td>
+		    </td>
+		  </tr>
+		  <tr>
+		      <td></td>
+		      <td><button type="hidden" class="btn btn-lg btn-primary">Guardar</button></td>
+		  </tr>
+		  {{ form_widget(edit_form._token) }}
+		  </table>
+		</form>
+		{% endblock %}

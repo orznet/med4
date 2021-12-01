@@ -1,0 +1,215 @@
+{% block body -%}
+    <body>
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/print.css') }}">
+        <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+            <tr>
+                <td align="center"><img src="/img/logo-med-unad.png" alt="MED"></td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <h3>Plan de Gestión y Auto Evaluación</h3>   
+                </td>
+            </tr>
+        </table>
+
+        <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.docente.user.nombres }} {{ entity.docente.user.apellidos }}</td>
+                <th>Periodo de Evaluación</th>
+                <td>{{entity.docente.periodo}}</td>
+            </tr>   
+
+            <tr>
+                <th>Cédula</th>
+                <td>{{ entity.docente.user.id }}</td>
+                <th>Vinculación / Modalidad</th>
+                <td>{{ entity.docente.vinculacion }} / {{ entity.docente.modalidad }} [{{ entity.docente.fechainicio|date("d/m/Y") }} - {{ entity.docente.fechafin|date("d/m/Y") }}]</td>
+            </tr>
+            <tr>
+                <th>Cargo</th>
+                <td>{{ entity.docente.cargo }}</td>
+                <th>Correo</th>
+                <td>{{ entity.docente.user.email }} - {{ entity.docente.user.emailp }} </td>
+            </tr>
+            <tr>
+                <th>Perfil</th>
+                <td>{{ entity.docente.perfil }}</td>
+                <th>Programa</th>
+                <td>{{ entity.docente.programa.nombre }}</td>
+            </tr> 
+            <tr>
+                <td colspan="2"><b>Escuela:</b> {{ entity.docente.escuela.nombre }}<br>
+                    Decano: {{ entity.docente.escuela.decano.nombres }} {{ entity.docente.escuela.decano.apellidos }}
+                </td>   
+                <td colspan="2"><b>Centro:</b> {{ entity.docente.centro.nombre }}<br>
+                    Director:{%if entity.docente.centro.director %} {{ entity.docente.centro.director.nombres }} {{ entity.docente.centro.director.apellidos }}{%endif%}
+                </td>
+            </tr>
+        </table>
+
+
+        <h2>1. Roles</h2>
+        <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+            <thead>
+                <tr>
+                    <th>Rol</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set num = 0 %}
+
+                {% for rol in entity.roles %}   
+                    <tr>
+                        {% set num = num+1 %}
+                        <td>{{num}}. {{ rol.rol.nombre }}
+                        </td>
+                        <td>
+                            {%if rol.rol.textoampliacion %}
+
+                                <font color="#a57225">{{rol.descripcion}}</font>
+
+                            {%endif%}
+                        </td>
+
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>2. Carga Académica</h2>
+
+        {%if entity.docente.tutoria|length > 0%} 
+            <h3>Tutorias</h3>  
+            <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+                <tr>
+                    <th>Id Curso</th>
+                    <th>Curso</th>
+                    <th>Perido Académico</th>
+                    <th>Estudiantes</th>
+                </tr>
+                {%for tutoria in entity.docente.tutoria%}
+                    <tr>
+                        <td>{{tutoria.oferta.curso.id}}</td>
+                        <td>{{tutoria.oferta.curso.nombre}}</td>
+                        <td>{{tutoria.oferta.periodo}}</td>
+                        <td>{{tutoria.estudiantes}}</td>
+                    </tr>
+                {%endfor%}
+            </table>
+        {%endif%}
+        {%if entity.docente.director|length > 0%}   
+            <h3>Direcciones de Curso</h3>
+            <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+                <tr>
+                    <th>Id Curso</th>
+                    <th>Curso</th>
+                    <th>Periodo Académico</th>
+                </tr> 
+                {%for oferta in entity.docente.director%}
+                    <tr>
+                        <td>
+                            {{oferta.curso.id}}     
+                        </td>
+                        <td>
+                            {{oferta.curso.nombre}}  
+                        </td>
+                        <td>
+                            {{oferta.periodo}}
+                        </td>
+                    </tr>
+                {%endfor%}
+            </table>
+        {%endif%}
+
+        {%if entity.docente.lider|length > 0%}
+            <h3>Lider de Programa o Cadena de Formación</h3>
+            <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">  
+                <tr>
+                    <th>Id</th>
+                    <th>Programa o Cadena de Formación</th>
+                </tr>
+                {%for programa in entity.docente.lider%}
+                    <tr>
+                        <td>
+                            {{programa.programa.id}}  
+                        </td>
+                        <td>
+                            {{programa.programa.nombre}}  
+                        </td>
+                    </tr>
+                {%endfor%}
+            </table>
+        {%endif%}
+
+        <h2>2. Auto Evaluación</h2> 
+        <table class="table table-bordered hidden-mobile" style="width: 95%">
+            <thead>
+                <tr>
+                    <th>Actividad</th>
+                    <th>Evidencia</th>
+                    <th>Auto</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set temp = 'temp' %} {% set num = 0 %} {% set totalhoras = 0 %}
+                {% set termino = 1 %}
+                {% for actividad in entity.actividades %}
+                    <tr>
+                        {%if temp != actividad.actividad.rol.nombre %} 
+                            <td>
+                                <b>Rol:
+                                    {{actividad.actividad.rol.nombre}}
+                                    {% set temp = actividad.actividad.rol.nombre %}        
+                                </b>
+                                <br>{{actividad.actividad.rol.descripcion}}
+                            </td>
+                            <td></td>
+                            <td></td>
+                        {%endif%}
+                    </tr>     
+                    <tr>
+                        {% set num = num+1 %}
+                        <td>{{num}}.     
+                            {{ actividad.actividad.descripcion }}
+                            {%if actividad.actividad.textoampliacion %}
+                                <font color="#a57225">{{actividad.descripcion}}</font>
+                            {%endif%}
+                            {%if actividad.observaciones %}
+                                <br>DESCRIPCIÓN DEL AVANCE: <font color="#058dc7">{{actividad.observaciones}}</font><br>
+                            {%endif%}
+                        </td>
+                        <td>
+                            {%if actividad.path %}
+                                {{actividad.id}}    
+                                <a href="../../../{{actividad.webpath}}" target="_blank"><i class="fa fa-download"></i>Ver...</a>
+                            {%endif%}
+                        </td>
+                        <td>
+                            {%if actividad.plang.autoevaluacion %}
+                                {{actividad.autoevaluacion}}
+                            {%elseif actividad.autoevaluacion is null%}
+                                {% set termino = 0 %}
+
+                            {%else%}  
+                            {%endif%}   
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td  colspan="2" align="right">Autoevaluación:</td>
+                    <td>{{ entity.autoevaluacion }}</td>
+                </tr> 
+                <tr>
+                    <td colspan="3"><b>Observaciones: </b>{{ entity.observaciones }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><b>Fecha autoevaluación: </b>{{ entity.fechaautoevaluacion? entity.fechaautoevaluacion|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>   
+            </tbody>
+        </table> 
+
+    </body>
+{% endblock %}

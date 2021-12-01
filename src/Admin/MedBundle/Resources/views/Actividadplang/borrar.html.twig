@@ -1,0 +1,50 @@
+		  {% block body -%}
+		            <div class="modal-header">
+		            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+		            <h4 class="modal-title">Autoevaluación</h4>
+		            </div>			<!-- /modal-header -->
+		            <div class="modal-body">          
+		   <form  action="{{ path('actividadplang_borrarreg', { 'id': entity.id }) }}" method="post" {{ form_start(borrar_form) }}
+		   <table class="table table-bordered table-striped hidden-mobile">
+		   <input type="hidden" name="_method" value="DELETE" />
+                   <tr>
+                       <td colspan="2">
+                       <font color="#F87217">{{ form_errors(borrar_form) }}</font>
+                       </td>    
+                   </tr> 
+                   <tr>    
+		    <td>Actividad ID</td>
+		    <td>{{ entity.id }}</td>
+		    </tr> 
+		   <tr>
+		    <td>Actividad</td>
+		    <td>{{ entity.actividad.descripcion }}</td>
+		    </tr>
+		   <tr>
+		    <td>Descripción del avance</td>
+		    <td>
+		     {{ entity.observaciones }}
+		    </td>
+		  </tr>
+                   <tr>
+		    <td>Evidencia</td>
+		    <td>
+             {%if entity.webpath%}   
+		    <a href="../../{{entity.webpath}}" target="_blank"><i class="fa fa-download"></i> Evidencia</a>
+		    {%endif%}
+            </td>
+		  </tr>
+		     <tr>
+		    <td>Autoevaluación</td>
+		    <td>
+		     {{ entity.autoevaluacion }}
+		    </td>
+		  </tr>
+		  <tr>
+                      <td colspan="2"><h1>Esta seguro de borrar la autoevaluación de esta actividad?</h1>
+		      <button type="hidden" class="btn btn-lg btn-primary">Borrar</button></td>
+		  </tr>
+		  {{ form_widget(borrar_form._token) }}
+		  </table>
+		</form>
+		{% endblock %}

@@ -1,0 +1,77 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+
+  <h4 class="modal-title">{{ entity.nombre }}</h4>
+  <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Sigla</th>
+                <td>{{ entity.sigla }}</td>
+            </tr>
+            <tr>
+                <th>Decano</th>
+                <td>{{ entity.decano.username }} {{ entity.decano.nombres }} {{ entity.decano.apellidos }}</td>
+            </tr>
+            <tr>
+                <th>Secretaria Academica</th>
+                <td>{{ entity.secretaria ? entity.secretaria.username~' '~entity.secretaria.nombres~' '~entity.secretaria.apellidos  : 'SIN' }}</td>
+            </tr>
+            <tr>
+                <th>Docentes</th>
+                <td>
+               Periodos de evaluación: 
+                
+                {%for periodo in periodos %}
+                     <a  href="{{ path('docente_escuela', { 'id': entity.id , 'periodo': periodo.id }) }}">{{ periodo.id }}</a>
+                      {%endfor%}  
+                </td>
+            </tr>
+             <th>Cursos</th>
+                <td><a  href="{{ path('curso_escuela', { 'sigla': entity.sigla }) }}">Ver</a> </td>
+            </tr>
+        </tbody>
+    </table>
+                
+   <h4 class="modal-title">Programas periodo actual</h4>	
+   <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <tbody>
+            <tr>
+           
+                <td>Código</td>
+                <td>Nivel</td>
+                <td>Nombre</td>
+                <td>Lider</td>
+               
+                <td>Editar</td>
+                
+            </tr>
+         {% for oferta in ofertado %}
+                 <tr>
+                 <td><a href="{{ path('programa_show', { 'id': oferta.id }) }}">{{oferta.programa.id}}</a></td>
+                
+                <td>{{oferta.programa.nivel}}</td>
+                 <td>{{oferta.programa.nombre}}</td>
+                <td>{{oferta.lider? oferta.lider.user.nombres~' '~oferta.lider.user.Apellidos : 'sin'}}</td>
+               
+                <td>
+                {% if is_granted('ROLE_SECA') or is_granted('ROLE_DEC')   %}   
+                <a data-toggle="modal" href="{{ path('programa_edit', { 'id': oferta.programa.id }) }}" data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                {%endif%}
+                 </td>
+            </tr>        
+{%endfor%}
+             </table>  
+ <div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">    
+<div class="modal-dialog modal-lg">
+<div class="modal-content">  
+</div></div></div>
+{% endblock %}
